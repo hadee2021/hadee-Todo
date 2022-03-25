@@ -1,9 +1,8 @@
 <template>
   <div>
     <header>
-      <div class="home-link-and-toggle">
+      <div class="home-link-div">
         <span @click="moveToPage()" class="home-link">Home</span>
-        <BackgroundToggle />
       </div>
       <div class="date-time">
         <DateTime />
@@ -22,14 +21,11 @@
 </template>
 
 <script>
-import BackgroundToggle from '@/components/BackgroundToggle.vue'
 import DateTime from '@/components/DateTime.vue'
 import DayMenuBar from '@/components/DayMenuBar.vue'
-import { useRouter, useRoute } from 'vue-router'
-import { watch, ref } from 'vue'
+import { useRouter } from 'vue-router'
 export default {
   components: {
-    BackgroundToggle,
     DateTime,
     DayMenuBar
   },
@@ -40,15 +36,9 @@ export default {
         name: 'Home'
       })
     }
-    const route = useRoute()
-    const dayIdentify = ref('')
-    watch(() => route.params.day, () => { 
-      dayIdentify.value = route.params.day
-    })
 
     return {
-      moveToPage,
-      dayIdentify
+      moveToPage
     }
   }
 }
@@ -58,13 +48,13 @@ export default {
   :root {
     --black : black;
     --white : white;
-    --whiteTransparency : rgba(255, 255, 255, 0.5);
+    --whiteTransparency : #f7f7f7;
     --skyblue : rgb(66, 194, 255);
     --skyblueTransparency : rgba(66, 194, 255, 0.8);
     --vuegreen : #42b883;
     --lightgray : #EFEFEF;
   }
-  .home-link-and-toggle {
+  .home-link-div {
     display: flex;
     justify-content: space-between;
     padding: 10px;
@@ -83,7 +73,7 @@ export default {
   main {
     background-color: var(--lightgray);
     /* 임시로 높이지정 */
-    height: 1500px;
+    height: 100vh;
   }
   .date-time, 
   .day-menu {

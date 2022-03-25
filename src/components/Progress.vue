@@ -50,7 +50,7 @@ export default {
     background-color: var(--skyblue);
   }
   .totalProgress-bar > div {
-    width: 100px;
+    width: 120px;
     line-height: 2;
   }
 </style>

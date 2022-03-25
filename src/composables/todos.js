@@ -10,18 +10,23 @@ export const useTodos = () => {
     store.dispatch('todos/addTodo', { data, dayId })
   }
 
-  const toggleTodo = ({ index, checked, dayId }) => {
-    store.dispatch('todos/toggleTodo', { index, checked, dayId })
+  const checkTodo = ({ index, checked, dayId }) => {
+    store.dispatch('todos/checkTodo', { index, checked, dayId })
   }
 
   const deleteTodo = ({ index, dayId }) => {
     store.dispatch('todos/deleteTodo', { index, dayId })
   }
 
+  const updateTodo = ({ index, dayId, subject }) => {
+    store.dispatch('todos/updateTodo', { index, dayId, subject })
+  }
+
   return {
     todos,
     addTodo,
-    toggleTodo,
-    deleteTodo
+    checkTodo,
+    deleteTodo,
+    updateTodo
   }
 }

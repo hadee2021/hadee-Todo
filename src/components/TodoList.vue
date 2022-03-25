@@ -5,20 +5,10 @@
       :key="todo.no"
       class="todo-card"
     >
-      <div>
-        <input 
-          type="checkbox" 
-          :value="todo.completed"
-          @change="toggleCheck(index, $event)"
-          @click.stop
-        />
-        <span
-          :class="{ todoCheck : todo.completed }"
-        >
-          {{ todo.subject }}
-        </span>
-      </div>
-      <i class="fa-solid fa-xmark" @click.stop="deleteTodoRequest(index)"></i>
+      <TodoContext 
+        :todo="todo"
+        :index="index"
+      />
     </div>
   </div>
 </template>
@@ -26,31 +16,18 @@
 <script>
 import { useRoute } from 'vue-router'
 import { useTodos } from '@/composables/todos'
+import TodoContext from '@/components/TodoContext.vue'
 export default {
+  components: { 
+    TodoContext
+  },
   setup() {
     const route = useRoute()
-    const {
-      todos,
-      toggleTodo,
-      deleteTodo
-    } = useTodos()
-
-    const toggleCheck = (index, event) => {
-      const dayId = route.params.dayId
-      const checked = event.target.checked
-      toggleTodo({ index, checked, dayId })
-    }
-
-    const deleteTodoRequest = (index) => {
-      const dayId = route.params.dayId
-      deleteTodo({ index, dayId })
-    }
+    const { todos } = useTodos()
 
     return {
       route,
-      todos,
-      toggleCheck,
-      deleteTodoRequest
+      todos
     }
   }
 }
@@ -64,24 +41,11 @@ export default {
     margin-top: 25px;
   }
   .todo-card {
-    display: flex;
-    justify-content: space-between;
     width: 50%;
-    height: 30px;
+    height: 40px;
     background-color: var(--white);
     margin-top: 5px;
     padding: 0 15px;
-  }
-  span {
-    padding: 0px 5px;
-  }
-  .todoCheck {
-    color: gray;
-    text-decoration: line-through;
-  }
-  i {
-    cursor: pointer;
-    margin-top: 5px;
-    
+    border: 1px solid #dedede;
   }
 </style>

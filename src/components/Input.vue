@@ -1,10 +1,10 @@
 <template>
   <div>
     <input type="text" 
-      v-model="todo.subject" 
+      v-model="subject" 
       placeholder="나의 할일"
     />
-    <div class="search-btn" @click.stop="onSave()">
+    <div class="search-btn" @click="onSave()">
       <i class="fa-solid fa-arrow-right"></i>
     </div>
   </div>
@@ -16,29 +16,24 @@ import { useRoute } from 'vue-router'
 import { useTodos } from '@/composables/todos'
 export default {
   setup() {
-    const todo = ref({
-      no: '',
-      subject:'',
-      completed: false
-    })
-
+    const subject = ref('')
     const route = useRoute()
     const { addTodo } = useTodos()
 
     const onSave = () => {
       const data = {
         no: Date.now(),
-        subject: todo.value.subject,
-        completed: todo.value.completed
+        subject: subject.value,
+        completed: false
       }
       const dayId = route.params.dayId
 
       addTodo({ data, dayId })
-      todo.value.subject = ''
+      subject.value = ''
     }
     
     return {
-      todo,
+      subject,
       onSave
     }
   }
