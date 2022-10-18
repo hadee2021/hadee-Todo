@@ -23,7 +23,10 @@ export default {
     const totalCompletedCount = computed(() => {
       return todoList.flatMap(x => x).filter(todo => todo.completed).length
     })
-    const totalProgress = computed(() => Math.ceil(totalCompletedCount.value/totalTodoCount.value*100))
+    const totalProgress = computed(() => {
+      if(totalTodoCount.value === 0) return 0
+      return Math.ceil(totalCompletedCount.value/totalTodoCount.value*100)
+    })
 
     return {
       todos,
